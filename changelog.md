@@ -23,3 +23,26 @@ All notable changes to this project will be documented in this file.
 - Resistance [list]
 - Chromosome number [list]
 - Pollen donor average for the mutant [list]
+- Date annual analysis [date]
+- Storage date [day]
+- Planting year  [year]
+- Clearing year  [year]
+- Storage date [day]
+- Tree nursery code [list]
+- Quantity 
+
+
+** Renamed features **
+
+- Changed entity for the traits.
+- Durability -> Fruit durability
+- Color green -> Fruit color green component [%]
+- Color yellow -> Fruit color yellow component [%]
+- Color red -> Fruit color red component [%]
+
+
+ 
+
+
+
+
