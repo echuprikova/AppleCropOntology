@@ -1,0 +1,131 @@
+[PrefixDeclaration]
+:		http://ob-visly.com/apples/
+owl:		http://www.w3.org/2002/07/owl#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+xml:		http://www.w3.org/XML/1998/namespace
+xsd:		http://www.w3.org/2001/XMLSchema#
+obda:		https://w3id.org/obda/vocabulary#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+
+[MappingDeclaration] @collection [[
+mappingId	BOOTSTRAPPED-MAPPING-ID1
+target		:variety_analysis/ID_analysis={identnr} a :variety_analysis ; :variety_analysis#ID_analysis {identnr}^^xsd:integer ; :variety_analysis#analysis_date {datum}^^xsd:date ; :variety_analysis#penetrometer {penetrometer}^^xsd:decimal ; :variety_analysis#pen_min {pen_min}^^xsd:decimal ; :variety_analysis#pen_max {pen_max}^^xsd:decimal ; :variety_analysis#pen_stdabw {pen_stdabw}^^xsd:decimal ; :variety_analysis#intensity {staerke}^^xsd:decimal ; :variety_analysis#acidity {saeure}^^xsd:decimal ; :variety_analysis#sugar_content {zucker}^^xsd:decimal ; :variety_analysis#sugar_content_min {zuk_min}^^xsd:decimal ; :variety_analysis#sugar_content_max {zuk_max}^^xsd:decimal ; :variety_analysis#sugar_content_SD {zuk_stdabw}^^xsd:decimal ; :variety_analysis#juiciness {saft}^^xsd:decimal ; :variety_analysis#ID_annual_data {jdat_identnr}^^xsd:integer ; :variety_analysis#ID_harvest {ernte_identnr}^^xsd:integer ; :variety_analysis#comments {bemerkung}^^xsd:string . 
+source		SELECT * FROM "lsp_owner_lsp20_analysen"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID2
+target		:annual_description/ID_annual_description={identnr} a :annual_description ; :annual_description#ID_annual_description {identnr}^^xsd:integer ; :annual_description#date {datum}^^xsd:date ; :annual_description#number {nummer}^^xsd:integer ; :annual_description#ID_harvest {ernte_identnr}^^xsd:integer ; :annual_description#ID_annual_data {jdat_identnr}^^xsd:integer . 
+source		SELECT * FROM "lsp_owner_lsp20_jahrbeschreibungen"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID3
+target		:annual_description/ID_annual_description={lsp_owner_lsp20_jahrbeschreibungen_identnr} :annual_description#hasHarvestID :harvest/ID_harvest={lsp_owner_lsp20_ernten_identnr} . 
+source		SELECT "lsp_owner_lsp20_jahrbeschreibungen"."identnr" AS lsp_owner_lsp20_jahrbeschreibungen_identnr, "lsp_owner_lsp20_ernten"."identnr" AS lsp_owner_lsp20_ernten_identnr FROM "lsp_owner_lsp20_jahrbeschreibungen", "lsp_owner_lsp20_ernten" WHERE "lsp_owner_lsp20_jahrbeschreibungen"."ernte_identnr" = "lsp_owner_lsp20_ernten"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID4
+target		:annual_description/ID_annual_description={lsp_owner_lsp20_jahrbeschreibungen_identnr} :annual_description#hasAnnualDataID :annual_data/ID_annual_data={lsp_owner_lsp20_jahrdaten_identnr} . 
+source		SELECT "lsp_owner_lsp20_jahrbeschreibungen"."identnr" AS lsp_owner_lsp20_jahrbeschreibungen_identnr, "lsp_owner_lsp20_jahrdaten"."identnr" AS lsp_owner_lsp20_jahrdaten_identnr FROM "lsp_owner_lsp20_jahrbeschreibungen", "lsp_owner_lsp20_jahrdaten" WHERE "lsp_owner_lsp20_jahrbeschreibungen"."jdat_identnr" = "lsp_owner_lsp20_jahrdaten"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID5
+target		:mutant_group/ID_mutantGroup={identnr} a :mutant_group ; :mutant_group#ID_mutantGroup {identnr}^^xsd:integer ; :mutant_group#type {art}^^xsd:string ; :mutant_group#bereich {ber_identnr}^^xsd:integer ; :mutant_group#label_it {bezeichnung_i}^^xsd:string ; :mutant_group#label_de {bezeichnung_d}^^xsd:string ; :mutant_group#label_en {bezeichnung_e}^^xsd:string . 
+source		SELECT * FROM "lsp_owner_lsp20_sortentypen"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID6
+target		:virus_status/virus_code={kode} a :virus_status ; :virus_status#virus_code {kode}^^xsd:string ; :virus_status#description_de {bezeichnung_d}^^xsd:string ; :virus_status#description_it {bezeichnung_i}^^xsd:string ; :virus_status#description_en {bezeichnung_e}^^xsd:string ; :virus_status#validity {gueltig}^^xsd:boolean . 
+source		SELECT * FROM "lsp_owner_lsp20_virusstati"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID7
+target		:feature_types/ID_feature_type={identnr} a :feature_types ; :feature_types#ID_feature_type {identnr}^^xsd:integer ; :feature_types#status {kode}^^xsd:integer ; :feature_types#validity {gueltig}^^xsd:integer ; :feature_types#order {ordnung}^^xsd:integer ; :feature_types#level {ebene}^^xsd:string ; :feature_types#charges {berechnung}^^xsd:string ; :feature_types#label_it {bezeichnung_i}^^xsd:string ; :feature_types#label_de {bezeichnung_d}^^xsd:string ; :feature_types#label_en {bezeichnung_e}^^xsd:string ; :feature_types#ID_mtyp_identnr {mtyp_identnr}^^xsd:integer . 
+source		SELECT * FROM "lsp_owner_merkmaltypen"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID8
+target		:storage/ID_storage={identnr} a :storage ; :storage#ID_storage {identnr}^^xsd:integer ; :storage#ID_annual_data {jdat_identnr}^^xsd:integer ; :storage#ID_harvest {ernte_identnr}^^xsd:integer ; :storage#storage_date {aus_datum}^^xsd:date ; :storage#quantity {anzahl}^^xsd:integer ; :storage#shrivel {schrumpfen}^^xsd:integer ; :storage#stains {druck}^^xsd:integer ; :storage#greasiness {fettig}^^xsd:integer ; :storage#peel_tan_percentage {braun}^^xsd:double ; :storage#peel_tan_quantity {braun_p}^^xsd:integer ; :storage#bitter_pit_percentage {stippe}^^xsd:double ; :storage#bitter_pit_quantity {stippe_p}^^xsd:integer ; :storage#rots_percentage {faul}^^xsd:double ; :storage#rot_quantity {faul_p}^^xsd:integer ; :storage#lenticel_rot_percentage {lentifaul}^^xsd:double ; :storage#lenticel_rot_quantity {lentifaul_p}^^xsd:integer ; :storage#frost_damage_percentage {kalt}^^xsd:double ; :storage#frost_damage_quantity {kalt_p}^^xsd:integer ; :storage#pinpoint_scab_percentage {schorf}^^xsd:double ; :storage#pinpoint_scab_quantity {schorf_p}^^xsd:integer ; :storage#mildew_percentage {morsch}^^xsd:double ; :storage#mildew_quantity {morsch_p}^^xsd:integer ; :storage#mealy_decay_percentage {mehl}^^xsd:double ; :storage#mealy_decay_quantity {mehl_p}^^xsd:integer ; :storage#flesh_browning_percentage {fleisch}^^xsd:double ; :storage#flesh_browning_quantity {fleisch_p}^^xsd:integer ; :storage#core_mould_percentage {schimmel}^^xsd:double ; :storage#core_mould_quantity {schimmel_p}^^xsd:integer ; :storage#glassiness_percentage {glasig}^^xsd:double ; :storage#glassiness_quantity {glasig_p}^^xsd:integer ; :storage#taste {geschmack}^^xsd:integer ; :storage#strength {festigkeit}^^xsd:integer ; :storage#durability {haltbarkeit}^^xsd:integer ; :storage#storage_time {lagerzeit}^^xsd:integer ; :storage#comments {bemerkung}^^xsd:string . 
+source		SELECT * FROM "lsp_owner_lsp20_auslagerungen"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID9
+target		:storage/ID_storage={lsp_owner_lsp20_auslagerungen_identnr} :storage#hasReferenceToHarvestID :harvest/ID_harvest={lsp_owner_lsp20_ernten_identnr} . 
+source		SELECT "lsp_owner_lsp20_auslagerungen"."identnr" AS lsp_owner_lsp20_auslagerungen_identnr, "lsp_owner_lsp20_ernten"."identnr" AS lsp_owner_lsp20_ernten_identnr FROM "lsp_owner_lsp20_auslagerungen", "lsp_owner_lsp20_ernten" WHERE "lsp_owner_lsp20_auslagerungen"."ernte_identnr" = "lsp_owner_lsp20_ernten"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID10
+target		:storage/ID_storage={lsp_owner_lsp20_auslagerungen_identnr} :storage#hasReferenceToAnnualID :annual_data/ID_annual_data={lsp_owner_lsp20_jahrdaten_identnr} . 
+source		SELECT "lsp_owner_lsp20_auslagerungen"."identnr" AS lsp_owner_lsp20_auslagerungen_identnr, "lsp_owner_lsp20_jahrdaten"."identnr" AS lsp_owner_lsp20_jahrdaten_identnr FROM "lsp_owner_lsp20_auslagerungen", "lsp_owner_lsp20_jahrdaten" WHERE "lsp_owner_lsp20_auslagerungen"."jdat_identnr" = "lsp_owner_lsp20_jahrdaten"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID11
+target		:variety_testing/ID_variety_testing={identnr} a :variety_testing ; :variety_testing#ID_variety_testing {identnr}^^xsd:integer ; :variety_testing#output_tree {ausgangsbaum}^^xsd:string ; :variety_testing#planting_year {pflanzjahr}^^xsd:date ; :variety_testing#clearing_year {rodungsjahr}^^xsd:date ; :variety_testing#scope_initial {umfang_anf}^^xsd:integer ; :variety_testing#scope_final {umfang_ende}^^xsd:integer ; :variety_testing#ID_genotypeCharacteristics {obsor_identnr}^^xsd:integer ; :variety_testing#ID_field {fel_identnr}^^xsd:integer ; :variety_testing#ID_person {per_identnr}^^xsd:integer ; :variety_testing#number {nummer}^^xsd:string ; :variety_testing#quantity {anzahl}^^xsd:string ; :variety_testing#rootstock {unterlage}^^xsd:string ; :variety_testing#tree_nursery_code {baumschulkode}^^xsd:string ; :variety_testing#plant_distance {pflanzabstand}^^xsd:string ; :variety_testing#virus_code {vir_kode}^^xsd:string ; :variety_testing#comments {bemerkung}^^xsd:string ; :variety_testing#yield_sum {sum_ertrag}^^xsd:integer ; :variety_testing#yield_index {ind_ertrag}^^xsd:integer ; :variety_testing#var_sum {var_sum}^^xsd:integer ; :variety_testing#var_index {var_ind}^^xsd:integer ; :variety_testing#archived {archiviert}^^xsd:boolean ; :variety_testing#russeting {berostung}^^xsd:integer ; :variety_testing#ratio {verhaeltnis}^^xsd:integer ; :variety_testing#tree_type {baumtyp}^^xsd:string ; :variety_testing#density {dichte}^^xsd:integer . 
+source		SELECT * FROM "lsp_owner_lsp20_versuche"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID12
+target		:variety_testing/ID_variety_testing={lsp_owner_lsp20_versuche_identnr} :variety_testing#isPlantedOn :fields/ID_field={lsp_owner_lsp20_felder_identnr} . 
+source		SELECT "lsp_owner_lsp20_versuche"."identnr" AS lsp_owner_lsp20_versuche_identnr, "lsp_owner_lsp20_felder"."identnr" AS lsp_owner_lsp20_felder_identnr FROM "lsp_owner_lsp20_versuche", "lsp_owner_lsp20_felder" WHERE "lsp_owner_lsp20_versuche"."fel_identnr" = "lsp_owner_lsp20_felder"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID13
+target		:variety_testing/ID_variety_testing={lsp_owner_lsp20_versuche_identnr} :variety_testing#includesGenotypeCharacteristicsID :genotypeCharacteristics/ID_genotypeCharacteristics={lsp_owner_lsp20_obstsorten_identnr} . 
+source		SELECT "lsp_owner_lsp20_versuche"."identnr" AS lsp_owner_lsp20_versuche_identnr, "lsp_owner_lsp20_obstsorten"."identnr" AS lsp_owner_lsp20_obstsorten_identnr FROM "lsp_owner_lsp20_versuche", "lsp_owner_lsp20_obstsorten" WHERE "lsp_owner_lsp20_versuche"."obsor_identnr" = "lsp_owner_lsp20_obstsorten"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID14
+target		:variety_testing/ID_variety_testing={lsp_owner_lsp20_versuche_identnr} :variety_testing#isResearchedBy :person/ID_person={lsp_owner_lsp20_personen_identnr} . 
+source		SELECT "lsp_owner_lsp20_versuche"."identnr" AS lsp_owner_lsp20_versuche_identnr, "lsp_owner_lsp20_personen"."identnr" AS lsp_owner_lsp20_personen_identnr FROM "lsp_owner_lsp20_versuche", "lsp_owner_lsp20_personen" WHERE "lsp_owner_lsp20_versuche"."per_identnr" = "lsp_owner_lsp20_personen"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID15
+target		:annual_data/ID_annual_data={identnr} a :annual_data ; :annual_data#ID_annual_data {identnr}^^xsd:integer ; :annual_data#ID_variety_testing {ver_identnr}^^xsd:integer ; :annual_data#year {jahr}^^xsd:integer ; :annual_data#green {farb_gruen}^^xsd:integer ; :annual_data#yellow {farb_gelb}^^xsd:integer ; :annual_data#red {farb_rot}^^xsd:integer ; :annual_data#cover_color_10 {farb_10}^^xsd:integer ; :annual_data#cover_color_100 {farb_100}^^xsd:integer ; :annual_data#cover_color_20 {farb_20}^^xsd:integer ; :annual_data#cover_color_30 {farb_30}^^xsd:integer ; :annual_data#cover_color_40 {farb_40}^^xsd:integer ; :annual_data#cover_color_50 {farb_50}^^xsd:integer ; :annual_data#cover_color_60 {farb_60}^^xsd:integer ; :annual_data#cover_color_70 {farb_70}^^xsd:integer ; :annual_data#cover_color_80 {farb_80}^^xsd:integer ; :annual_data#cover_color_90 {farb_90}^^xsd:integer ; :annual_data#size_class_less65 {gr_65}^^xsd:integer ; :annual_data#size_class_more65 {gr_65plus}^^xsd:integer ; :annual_data#size_class_more70 {gr_70plus}^^xsd:integer ; :annual_data#size_class_more75 {gr_75plus}^^xsd:integer ; :annual_data#size_class_more80 {gr_80plus}^^xsd:integer ; :annual_data#size_class_more85 {gr_85plus}^^xsd:integer ; :annual_data#size_class_more90 {gr_90plus}^^xsd:integer ; :annual_data#blossom {bluete_anf}^^xsd:date ; :annual_data#full_flowering {bluete_voll}^^xsd:date ; :annual_data#fading {bluete_ablue}^^xsd:date ; :annual_data#consumption_start {genuss_von}^^xsd:integer ; :annual_data#consumption_until {genuss_bis}^^xsd:integer ; :annual_data#russeting {berostung}^^xsd:integer ; :annual_data#ratio {verhaeltnis}^^xsd:integer ; :annual_data#high_growing {anteil_hochgebaut}^^xsd:integer ; :annual_data#quantity_sorted_by_color {anzahl_sort_farb}^^xsd:integer ; :annual_data#quantity_sorted_by_size {anzahl_sort_gr}^^xsd:integer ; :annual_data#archived {archiviert}^^xsd:integer ; :annual_data#strip {streifung}^^xsd:integer . 
+source		SELECT * FROM "lsp_owner_lsp20_jahrdaten"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID16
+target		:annual_data/ID_annual_data={lsp_owner_lsp20_jahrdaten_identnr} :annual_data#hasVarietyTestingID :variety_testing/ID_variety_testing={lsp_owner_lsp20_versuche_identnr} . 
+source		SELECT "lsp_owner_lsp20_jahrdaten"."identnr" AS lsp_owner_lsp20_jahrdaten_identnr, "lsp_owner_lsp20_versuche"."identnr" AS lsp_owner_lsp20_versuche_identnr FROM "lsp_owner_lsp20_jahrdaten", "lsp_owner_lsp20_versuche" WHERE "lsp_owner_lsp20_jahrdaten"."identnr" = "lsp_owner_lsp20_versuche"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID17
+target		:genotype/ID_genotype={identnr} a :genotype ; :genotype#ID_genotype {identnr}^^xsd:integer ; :genotype#belongsToID_mutantGroup {styp_identnr}^^xsd:integer ; :genotype#genotypeNameDE {name_d}^^xsd:string ; :genotype#genotypeNameEN {name_e}^^xsd:string ;  :genotype#genotypeNameIT {name_i}^^xsd:string . 
+source		SELECT * FROM "lsp_owner_lsp20_sorten"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID18
+target		:genotype/ID_genotype={lsp_owner_lsp20_sorten_identnr} :genotype#hasMutantGroupID :mutant_group/ID_mutantGroup={lsp_owner_lsp20_sortentypen_identnr} . 
+source		SELECT "lsp_owner_lsp20_sorten"."identnr" AS lsp_owner_lsp20_sorten_identnr, "lsp_owner_lsp20_sortentypen"."identnr" AS lsp_owner_lsp20_sortentypen_identnr FROM "lsp_owner_lsp20_sorten", "lsp_owner_lsp20_sortentypen" WHERE "lsp_owner_lsp20_sorten"."styp_identnr" = "lsp_owner_lsp20_sortentypen"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID19
+target		:publications/ID_publication={identnr} a :publications ; :publications#ID_publication {identnr}^^xsd:integer ; :publications#ID_genotypeCharacteristics {obsor_identnr}^^xsd:integer ; :publications#author {autor}^^xsd:string ; :publications#publication_titel {titel}^^xsd:string ; :publications#publication_year {jahr}^^xsd:date ; :publications#journal {zeitschrift}^^xsd:string . 
+source		SELECT * FROM "lsp_owner_lsp20_literatur"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID20
+target		:publications/ID_publication={lsp_owner_lsp20_literatur_identnr} :publications#isPublishedAt :genotypeCharacteristics/ID_genotypeCharacteristics={lsp_owner_lsp20_obstsorten_identnr} . 
+source		SELECT "lsp_owner_lsp20_literatur"."identnr" AS lsp_owner_lsp20_literatur_identnr, "lsp_owner_lsp20_obstsorten"."identnr" AS lsp_owner_lsp20_obstsorten_identnr FROM "lsp_owner_lsp20_literatur", "lsp_owner_lsp20_obstsorten" WHERE "lsp_owner_lsp20_literatur"."obsor_identnr" = "lsp_owner_lsp20_obstsorten"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID21
+target		:person/ID_person={identnr} a :person ; :person#ID_person {identnr}^^xsd:integer ; :person#surname {name}^^xsd:string ; :person#name {vorname}^^xsd:string ; :person#street {strasse}^^xsd:string ; :person#house_number {hausnummer}^^xsd:string ; :person#zip {plz}^^xsd:string ; :person#place {ort}^^xsd:string ; :person#nation {nation}^^xsd:string ; :person#email {email}^^xsd:string ; :person#phone {telefon}^^xsd:string ; :person#fax {fax}^^xsd:string . 
+source		SELECT * FROM "lsp_owner_lsp20_personen"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID22
+target		:fields/ID_field={identnr} a :fields ; :fields#ID_field {identnr}^^xsd:integer ; :fields#number {nummer}^^xsd:string ; :fields#description {beschreibung}^^xsd:string ; :fields#sea_level {meereshoehe}^^xsd:integer ; :fields#archived {archiviert}^^xsd:integer . 
+source		SELECT * FROM "lsp_owner_lsp20_felder"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID23
+target		:harvest/ID_harvest={identnr} a :harvest ; :harvest#ID_harvest {identnr}^^xsd:integer ; :harvest#number {nummer}^^xsd:integer ; :harvest#date {datum}^^xsd:date ; :harvest#ID_annual_data {jdat_identnr}^^xsd:integer ; :harvest#main_harvest {haupt}^^xsd:integer . 
+source		SELECT * FROM "lsp_owner_lsp20_ernten"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID24
+target		:harvest/ID_harvest={lsp_owner_lsp20_ernten_identnr} :harvest#includesAnnualDataID :annual_data/ID_annual_data={lsp_owner_lsp20_jahrdaten_identnr} . 
+source		SELECT "lsp_owner_lsp20_ernten"."identnr" AS lsp_owner_lsp20_ernten_identnr, "lsp_owner_lsp20_jahrdaten"."identnr" AS lsp_owner_lsp20_jahrdaten_identnr FROM "lsp_owner_lsp20_ernten", "lsp_owner_lsp20_jahrdaten" WHERE "lsp_owner_lsp20_ernten"."jdat_identnr" = "lsp_owner_lsp20_jahrdaten"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID25
+target		:genotypeCharacteristics/ID_genotypeCharacteristics={identnr} a :genotypeCharacteristics ; :genotypeCharacteristics#ID_genotypeCharacteristics {identnr}^^xsd:integer ; :genotypeCharacteristics#cultivation_year {anbaujahr}^^xsd:string ; :genotypeCharacteristics#fruit_types_synonymous {obsor_synonym}^^xsd:string ; :genotypeCharacteristics#brand_name {markenname}^^xsd:string ; :genotypeCharacteristics#mother_sort {mutter}^^xsd:string ; :genotypeCharacteristics#father_sort {vater}^^xsd:string ; :genotypeCharacteristics#breeding_year {zuchtjahr}^^xsd:string ; :genotypeCharacteristics#resistance {resistenz}^^xsd:string ; :genotypeCharacteristics#plant_variety_protection {sortenschutz}^^xsd:date ; :genotypeCharacteristics#plant_variety_protection_ok {sortenschutz_ok}^^xsd:string ; :genotypeCharacteristics#protection_period {schutzperiode}^^xsd:string ; :genotypeCharacteristics#protection_number {schutznummer}^^xsd:integer ; :genotypeCharacteristics#chromosomen {chromosomen}^^xsd:string ; :genotypeCharacteristics#pollenspender {pollenspender}^^xsd:string ; :genotypeCharacteristics#intensity {staerke}^^xsd:string ; :genotypeCharacteristics#ID_genotype {sor_identnr}^^xsd:integer ; :genotypeCharacteristics#ID_person {per_identnr}^^xsd:integer ; :genotypeCharacteristics#breeding_institution {zuchtanstalt}^^xsd:string ; :genotypeCharacteristics#breeder {zuechter}^^xsd:string ; :genotypeCharacteristics#storage_temperature {lagertemperatur}^^xsd:string ; :genotypeCharacteristics#c2 {c2}^^xsd:string ; :genotypeCharacteristics#o2 {o2}^^xsd:string ; :genotypeCharacteristics#humidity {luftfeuchte}^^xsd:string ; :genotypeCharacteristics#penetrometer {penetrometer}^^xsd:string ; :genotypeCharacteristics#penetrometer_class {penetrometer_class}^^xsd:string ; :genotypeCharacteristics#acidity {saeure}^^xsd:string ; :genotypeCharacteristics#acidity_class {saeure_class}^^xsd:string ; :genotypeCharacteristics#refractometer {refraktometer}^^xsd:string ; :genotypeCharacteristics#refraktometer_class {refraktometer_class}^^xsd:string ; :genotypeCharacteristics#blossoming_dif {bluetezeit_dif}^^xsd:string ; :genotypeCharacteristics#harvest_dif {erntezeit_dif}^^xsd:string ; :genotypeCharacteristics#tree_characteristics_de {baummerkmale_d}^^xsd:string ; :genotypeCharacteristics#tree_characteristics_it {baummerkmale_i}^^xsd:string ; :genotypeCharacteristics#tree_characteristics_en {baummerkmale_e}^^xsd:string ; :genotypeCharacteristics#comments_de {bemerkungen_d}^^xsd:string ; :genotypeCharacteristics#commenti_it {bemerkungen_i}^^xsd:string ; :genotypeCharacteristics#comments_en {bemerkungen_e}^^xsd:string ; :genotypeCharacteristics#fruit_characteristics_de {fruchtmerkmale_d}^^xsd:string ; :genotypeCharacteristics#fruit_characteristics_it {fruchtmerkmale_i}^^xsd:string ; :genotypeCharacteristics#fruit_characteristics_en {fruchtmerkmale_e}^^xsd:string ; :genotypeCharacteristics#storage_capacity_de {lagerfaehigkeit_d}^^xsd:string ; :genotypeCharacteristics#storage_capacity_it {lagerfaehigkeit_i}^^xsd:string ; :genotypeCharacteristics#storage_capacity_en {lagerfaehigkeit_e}^^xsd:string ; :genotypeCharacteristics#blossoming_time_de {bluetezeit_d}^^xsd:string ; :genotypeCharacteristics#blossoming_time_it {bluetezeit_i}^^xsd:string ; :genotypeCharacteristics#blossoming_time_en {bluetezeit_e}^^xsd:string ; :genotypeCharacteristics#harvest_time_de {erntezeit_d}^^xsd:string ; :genotypeCharacteristics#harvest_time_it {erntezeit_i}^^xsd:string ; :genotypeCharacteristics#harvest_time_en {erntezeit_e}^^xsd:string ; :genotypeCharacteristics#ID_standard_variety {std_sor_identnr}^^xsd:integer ; :genotypeCharacteristics#archived {archiviert}^^xsd:boolean ; :genotypeCharacteristics#fruit_image {fruchtbild}^^xsd:string . 
+source		SELECT * FROM "lsp_owner_lsp20_obstsorten"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID26
+target		:genotypeCharacteristics/ID_genotypeCharacteristics={lsp_owner_lsp20_obstsorten_identnr} :genotypeCharacteristics#isResearchedBy :person/ID_person={lsp_owner_lsp20_personen_identnr} . 
+source		SELECT "lsp_owner_lsp20_obstsorten"."identnr" AS lsp_owner_lsp20_obstsorten_identnr, "lsp_owner_lsp20_personen"."identnr" AS lsp_owner_lsp20_personen_identnr FROM "lsp_owner_lsp20_obstsorten", "lsp_owner_lsp20_personen" WHERE "lsp_owner_lsp20_obstsorten"."per_identnr" = "lsp_owner_lsp20_personen"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID27
+target		:genotypeCharacteristics/ID_genotypeCharacteristics={lsp_owner_lsp20_obstsorten_identnr} :genotypeCharacteristics#hasGenotypeID :genotype/ID_genotype={lsp_owner_lsp20_sorten_identnr} . 
+source		SELECT "lsp_owner_lsp20_obstsorten"."identnr" AS lsp_owner_lsp20_obstsorten_identnr, "lsp_owner_lsp20_sorten"."identnr" AS lsp_owner_lsp20_sorten_identnr FROM "lsp_owner_lsp20_obstsorten", "lsp_owner_lsp20_sorten" WHERE "lsp_owner_lsp20_obstsorten"."sor_identnr" = "lsp_owner_lsp20_sorten"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID28
+target		:genotypeCharacteristics/ID_genotypeCharacteristics={lsp_owner_lsp20_obstsorten_identnr} :genotypeCharacteristics#hasStandardVarietyID :genotype/ID_genotype={lsp_owner_lsp20_sorten_identnr} . 
+source		SELECT "lsp_owner_lsp20_obstsorten"."identnr" AS lsp_owner_lsp20_obstsorten_identnr, "lsp_owner_lsp20_sorten"."identnr" AS lsp_owner_lsp20_sorten_identnr FROM "lsp_owner_lsp20_obstsorten", "lsp_owner_lsp20_sorten" WHERE "lsp_owner_lsp20_obstsorten"."std_sor_identnr" = "lsp_owner_lsp20_sorten"."identnr"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID29
+target		:climate_stations/ID_climate_station={fid} a :climate_stations ; :climate_stations#ID_climate_station {fid}^^xsd:integer ; :climate_stations#geo_location {geom}^^xsd:string ; :climate_stations#latitude_climate_station {lat}^^xsd:double ; :climate_stations#longitude_climate_station {lon}^^xsd:double ; :climate_stations#elevation_climate_station {ele}^^xsd:double ; :climate_stations#precipitation_source {p_source}^^xsd:string ; :climate_stations#temperature_source {t_source}^^xsd:string ; :climate_stations#cs_province {province}^^xsd:string ; :climate_stations#climate_station_name {name}^^xsd:string . 
+source		SELECT * FROM "climate_stations"
+
+mappingId	BOOTSTRAPPED-MAPPING-ID30
+target		:climate_stations_data/ID_climate_data={id} a :climate_stations_data ; :climate_stations_data#ID_climate_data {id}^^xsd:integer ; :climate_stations_data#climate_observation_date {date}^^xsd:date ; :climate_stations_data#air_temperature_min {tmin}^^xsd:double ; :climate_stations_data#air_temperature_max {tmax}^^xsd:double ; :climate_stations_data#air_temperature_mean {tmean}^^xsd:double ; :climate_stations_data#precipitation {prec}^^xsd:double ; :climate_stations_data#province {province}^^xsd:string . 
+source		SELECT * FROM "climate_stations_data"
+]]
+
